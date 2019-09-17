@@ -30,7 +30,7 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
     this.handler = StripeCheckout.configure({
       key: environment.stripe.key,
-      image: '../../assets/donutLogo.jpg',
+      image: './assets/donutLogo.jpg',
       locale: 'auto',
       source: async (source) => {
         this.loading = true;
