@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AngularFireFunctions } from '@angular/fire/functions';
 import { MatSelectionListChange } from '@angular/material/list';
+
+import { CallableFunctionsService } from '../services/callable-functions.service';
 
 @Component({
   selector: 'app-select-card',
@@ -13,12 +14,11 @@ export class SelectCardComponent implements OnInit {
   public cards$: any;
   public selectedCard: any;
 
-  constructor(private functions: AngularFireFunctions) { }
+  constructor(private functions: CallableFunctionsService) { }
 
   async ngOnInit() {
-    const stripeGetSources = this.functions.httpsCallable('stripeGetSources');
-    this.cards$ = stripeGetSources({});
-    const cards =  await stripeGetSources({}).toPromise();
+    this.cards$ = this.functions.stripeGetSources();
+    const cards =  await this.functions.stripeGetSources().toPromise();
     console.log('this.cards :', cards);
   }
 
