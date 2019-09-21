@@ -4,28 +4,32 @@
 
   <img [src]="user.photoURL" width="100">
   <hr>
-  <button class="button" (click)="auth.signOut()">Sign Out</button>
+  <button mat-flat-button color="warn" (click)="auth.signOut()">Sign Out</button>
+
+  <hr>
+
+
+  <div class="card"> 
+      <div class="card-image">
+        <img src="./assets/donuts.jpg" width="400">
+      </div>
+    <div class="card-content">
+        <app-checkout [amount]="2000" description="Donuts"></app-checkout>
+        <!-- <app-elements [amount]="2000" description="People Meat"></app-elements> -->
+        
+    </div>
+  </div>
+
+  <app-select-card (cardSelected)="onCardSelected($event)"></app-select-card>
+
+  <router-outlet></router-outlet>
+
+
 </div>
 
 
 
 <ng-template #login>
-  <button class="button" (click)="auth.googleSignIn()">Login with Google</button>
+  <button mat-flat-button color="primary" (click)="auth.googleSignIn()">Login with Google</button>
 </ng-template>
 
-<hr>
-
-
-<div class="card"> 
-    <div class="card-image">
-      <img src="./assets/donuts.jpg" width="400">
-    </div>
-  <div class="card-content">
-      <app-checkout [amount]="2000" description="Donuts"></app-checkout>
-      <!-- <app-elements [amount]="2000" description="People Meat"></app-elements> -->
-      
-  </div>
-</div>
-
-
-<router-outlet></router-outlet>
