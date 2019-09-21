@@ -13,20 +13,27 @@ export class SelectCardComponent implements OnInit {
 
   public cards$: any;
   public selectedCard: any;
+  public confirmation: any;
 
   constructor(private functions: CallableFunctionsService) { }
 
   async ngOnInit() {
     this.cards$ = this.functions.stripeGetSources();
-    const cards =  await this.functions.stripeGetSources().toPromise();
-    console.log('this.cards :', cards);
   }
 
   public onSelectionChange(event: MatSelectionListChange) {
-    console.log('e :', event.option.value);
     this.selectedCard = event.option.value;
     this.cardSelected.emit(this.selectedCard);
 
+  }
+
+  public async onPayButtonClick() {
+    if (!this.selectedCard) {
+      alert('Please choose a payment method');
+      return;
+    }
+    this.confirmation = await this.functions.stripeCreateCharge(this.selectedCard, 2000).toPromise();
+    console.log('this.confirmation :', this.confirmation);
   }
 
 }
